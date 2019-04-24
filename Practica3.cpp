@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cmath>
 using namespace std;
 
 class CDummy
@@ -11,11 +12,11 @@ class CDummy
     static int getN(){ return n;}
 };
 
-class Point
+class Point0
 {
     public :
         int  x,y;
-    Point (int u,int v) : x(u), y(v) {}
+    Point0 (int u,int v) : x(u), y(v) {}
     int getX() { return x; }
     int getY() { return y; }
 
@@ -24,47 +25,46 @@ class Point
 
 int CDummy ::n = 0;
 
-class Point2{
-
-    int x, y;
+class Point{
 
     public :
-    Point2(int xx =0, int yy =0) {x = xx; y = yy ;}
+    int x, y;
+    Point(int xx =0, int yy =0) {x = xx; y = yy ;}
     int getX() const { return x;}
     int getY() const { return y;}
     void setX( const int xx) {x = xx ;}
     void setY( const int yy) {y = yy ;}
 };
 
-class PointArray {
+class PointArray{
     int size;
-    Point2* points ;
-    void resize (int size );
+    Point *points ;
+    void resize(int size);
     public:
     PointArray();
-    PointArray(const Point pts [], const int size );
-    PointArray (const PointArray &pv);
+    PointArray(const Point pts[], const int size );
+    PointArray(const PointArray &pv);
     ~PointArray();
     void clear();
     int getSize() const { return size ;}
     void push_back( const Point &p);
-    void insert( const int pos , const Point &p);
-    void remove( const int pos );
-    Point2*get(const int pos);
-    const Point2 *get(const int pos) const ;
+    void insert(const int pos , const Point &p);
+    void remove(const int pos);
+    Point *get(const int pos);
+    const Point *get(const int pos) const ;
 };
 
 PointArray :: PointArray () {
     size = 0;
-    points = new Point2[0]; // Allows deleting later
+    points = new Point[0];
 }
 
 PointArray :: PointArray(const Point ptsToCopy [], const int toCopySize)
 {
     size = toCopySize ;
-    points = new Point2 [ toCopySize ];
-    for(int i = 0; i < toCopySize ; ++i) {
-    points [i] = ptsToCopy [i];
+    points = new Point[ toCopySize ];
+    for(int i = 0; i < toCopySize; ++i) {
+    points[i] = ptsToCopy [i];
     }
 }
 
@@ -143,9 +143,10 @@ class Polygon {
     ~ Polygon () {-- numPolygons ;}
 };
 
-int Polygon ::n = 0;
+int Polygon::n =0;
 
-Polygon :: Polygon ( const PointArray &pa) : points (pa) {
+Polygon :: Polygon(const PointArray &pa)
+    : points(pa){
     ++ numPolygons ;
 }
 
@@ -184,7 +185,7 @@ double Rectangle :: area () const {
 
     int length = points .get (1) ->getY () - points .get (0) ->getY ();
     int width = points .get (2) ->getX () - points .get (1) ->getX ();
-    return std :: abs (( double ) length * width );
+    return std ::abs(( double ) length * width );
 }
 
 class Triangle : public Polygon {
@@ -226,13 +227,13 @@ void printAttributes (Polygon *p) {
 }
 
 
-int main()
+int main(int argc ,char *argv[])
 {
-    CDummy a;
-    CDummy b [5];
-    CDummy * c = new CDummy ;
-    cout << a.n << "\n"; // prints out 7
-    delete c;
+    CDummy a1;
+    CDummy b1[5];
+    CDummy *c1 = new CDummy ;
+    cout << a1.n << "\n"; // prints out 7
+    delete c1;
     cout << CDummy ::n << "\n"; // prints out 6
     string s = " Hello ";
     s+= " world !";
@@ -245,11 +246,10 @@ int main()
     const Point myPoint (5, 3);
     Point p(5, 3);
     cout<<p.x<<" "<< p.y<< "\n";
-    int argc , char * argv [];
     cout<<"Ingrese las cordenadas de rectángulo inferior izquierdo y superior derecho como cuatro enteros separados por espacios:";
     int llx , lly , urx , ury;
     cin>>llx>>lly>> urx >> ury;
-    Point2 ll(llx , lly), ur(urx , ury);
+    Point ll(llx , lly), ur(urx , ury);
     Rectangle r(ll , ur);
     printAttributes(&r);
     cout<<"Introduzca tres coordenadas del triángulo como seis enteros separados por espacios:";
