@@ -139,11 +139,11 @@ class Polygon {
     virtual double area () const = 0;
     static int getNumPolygons () { return numPolygons ;}
     int getNumSides () const { return points . getSize () ;}
-    const PointArray * getPoints () const { return & points ;}
+    const PointArray *getPoints () const { return & points ;}
     ~ Polygon () {-- numPolygons ;}
 };
 
-int Polygon::n =0;
+int Polygon::numPolygons =0;
 
 Polygon :: Polygon(const PointArray &pa)
     : points(pa){
