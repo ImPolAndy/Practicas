@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdexcept>
-
+#include <vector>
+#include <map>
 using namespace std;
 
 template < typename T>
@@ -13,22 +14,24 @@ T min( const T t1 , const T t2)
 
 template < class T> class Stack ;
 
+/*
 template < class T>
-Stack <T> operator +( const Stack <T> &s1 , const Stack <T> &s2);
+Stack <T> operator +( const Stack <T> &s1 , const Stack <T> &s2)
 {
     Stack <T> result = s1;
 
-    for ( unsigned i = 0; i < s1. items . size (); ++i) {
-    result.items.push_back(s2. items [i]);
+    for ( unsigned i = 0; i < s1.items . size (); ++i) {
+    result.items.push_back(s2.items [i]);
     }
 
 return result ;
 }
+*/
 
-template < class T>
+template<class T>
 class Stack
 {
-    friend Stack<T>operator +<>( const Stack <T> &s1 , const Stack <T> &s2);
+    friend Stack<T>operator +( const Stack <T> &s1 , const Stack <T> &s2);
     vector <T> items ;
     public :
     bool empty () const { return items . empty () ;}
@@ -42,7 +45,7 @@ class Stack
 };
 
 template < class T>
-Stack <T> operator +( const Stack <T> &s1 , const Stack <T> &s2)
+Stack<T> operator +( const Stack <T> &s1 , const Stack <T> &s2)
 {
     Stack <T> result = s1;
     for( unsigned i = 0; i < s1. items . size (); ++i) {
@@ -53,7 +56,7 @@ Stack <T> operator +( const Stack <T> &s1 , const Stack <T> &s2)
 
 class Graph {
     protected :
-    map <int , vector <int > > outgoing ;
+    map <int,vector <int> > outgoing ;
 
 public :
     Graph( const vector <int > & startPoints , const vector <int >&endPoints );
@@ -63,19 +66,18 @@ public :
 
 Graph :: Graph ( const vector <int > & startPoints , const vector <int > &
 endPoints ) {
-16 if( startPoints . size () != endPoints . size ()) {
-17 throw invalid_argument (" Start /end point lists differ in
-length ");
-18 }
-19
-for( unsigned i = 0; i < startPoints . size (); i++ ) {
-21 int start = startPoints [i], end = endPoints [i];
-22 outgoing [ start ]. push_back (end);
-23 outgoing [end ]; // Just to indicate this node exists
-24 }
+    if( startPoints.size ()!=endPoints.size ()) {
+        throw invalid_argument (" Start /end point lists differ in length ");
+    }
+
+    for( unsigned i = 0; i < startPoints . size (); i++ ) {
+        int start = startPoints [i], end = endPoints [i];
+        outgoing [ start ]. push_back (end);
+        outgoing [end ]; // Just to indicate this node exists
+    }
 }
 
-int Graph :: numOutgoing ( const int nodeID ) const
+int Graph :: numOutgoing( const int nodeID ) const
 {
     return adjacent(nodeID).size();
 }
@@ -92,6 +94,11 @@ const vector <int > & Graph :: adjacent( const int nodeID ) const
 
 int main()
 {
+    Stack<int> a,b;
+    a.push(1);
+    a.push(2);
+    a.push(3);
+    b.push(4);
 
     return 0;
 }
